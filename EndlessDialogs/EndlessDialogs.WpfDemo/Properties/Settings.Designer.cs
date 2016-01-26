@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EndlessDialogs.DemoWinForms.Properties
+namespace EndlessDialogs.WpfDemo.Properties
 {
 
 

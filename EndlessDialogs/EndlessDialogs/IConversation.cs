@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EndlessDialogs.Tests
+namespace EndlessDialogs
 {
-    public class Class1
+    class IConversation
     {
     }
 }

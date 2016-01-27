@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EndlessDialogs
 {
-    class Conversation : IConversation
+    public class Conversation : IConversation
     {
     }
 }

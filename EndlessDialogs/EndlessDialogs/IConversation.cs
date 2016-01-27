@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace EndlessDialogs
 {
-    public class IConversation
+    public interface IConversation
     {
+        void SetStartDialog(IDialog dialog);
+
+        void SetName(string name);
+        string GetName();
+
+        void SetDescription(string description);
+        string GetDescription();
+
+        IDialog Next();
+
+        IDialog Next(IDialog answer);
+
     }
 }

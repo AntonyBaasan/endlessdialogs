@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Conversation\ConversationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticText\StaticTextManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

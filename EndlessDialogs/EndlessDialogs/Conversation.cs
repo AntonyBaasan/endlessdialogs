@@ -8,6 +8,11 @@ namespace EndlessDialogs
 {
     public class Conversation : IConversation
     {
+        public void AddDialog(IDialog[] dialog)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddDialog(IDialog dialog)
         {
             throw new NotImplementedException();

@@ -37,6 +37,18 @@ namespace EndlessDialogs.Tests
         }
 
         [Test]
+        public void Add_Dialog_Should_Throw_Argument_Exception_When_Null_Passed()
+        {
+            IDialog dialog = null;
+            Assert.Throws<ArgumentException>(()=>conversation.AddDialog(dialog));
+        }
+        [Test]
+        public void Add_Dialog_Should_Throw_Argument_Exception_When_Empty_Array_Passed()
+        {
+            IDialog[] dialogs = new IDialog[0];
+            Assert.Throws<ArgumentException>(() => conversation.AddDialog(dialogs));
+        }
+        [Test]
         public void Conversation_Should_Have_List_of_Dialogs() {
 
             Assert.Equals(conversation.GetAllDialogs().Length, 4);
@@ -67,7 +79,6 @@ namespace EndlessDialogs.Tests
         [Test]
         public void Sequince_Should_Work()
         {
-
             Assert.IsNull(conversation.Next());
         }
     }

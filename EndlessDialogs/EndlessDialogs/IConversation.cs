@@ -10,6 +10,8 @@ namespace EndlessDialogs
     {
         void SetStartDialog(IDialog dialog);
 
+        void AddDialog(IDialog[] dialog);
+
         void AddDialog(IDialog dialog);
 
         void RemoveDialog(IDialog dialog);

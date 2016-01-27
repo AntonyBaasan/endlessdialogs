@@ -13,5 +13,10 @@ namespace EndlessDialogs
         {
             throw new NotImplementedException();
         }
+
+        public object RemoveText(string key)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

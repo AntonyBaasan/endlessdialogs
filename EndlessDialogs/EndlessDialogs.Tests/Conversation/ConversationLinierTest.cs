@@ -24,17 +24,17 @@ namespace EndlessDialogs.Tests
             dialog4 = Substitute.For<IDialog>();
 
             //Make dialogs linies
-            dialog1.GetNext().Returns(new IDialog[] { dialog2 });
-            dialog2.GetNext().Returns(new IDialog[] { dialog3 });
-            dialog3.GetNext().Returns(new IDialog[] { dialog4 });
+            dialog1.GetNext().Returns(new[] { dialog2 });
+            dialog2.GetNext().Returns(new[] { dialog3 });
+            dialog3.GetNext().Returns(new[] { dialog4 });
             dialog4.GetNext().Returns(new IDialog[0]);
         }
 
-       
-       [Test]
+
+        [Test]
         public void Should_Set_Start()
         {
-            conversation.SetStartDialog(new []{dialog1}.ToList());
+            conversation.SetStartDialog(new[] { dialog1 }.ToList());
 
             Assert.AreEqual(dialog1, conversation.Next().First());
         }

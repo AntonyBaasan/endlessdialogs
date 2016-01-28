@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
+
 namespace EndlessDialogs.Tests
 {
     [TestFixture]

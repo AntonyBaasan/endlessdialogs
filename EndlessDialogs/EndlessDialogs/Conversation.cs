@@ -4,31 +4,10 @@ using System.Linq;
 
 namespace EndlessDialogs
 {
-    public class Conversation : IConversation
+    public class Conversation : AbstractBasicObject, IConversation
     {
-        private string Name;
-        private string Description;
 
         private IEnumerable<IDialog> nextDialogs = null;
-        
-        public string GetDescription()
-        {
-            return Description;
-        }
-
-        public string GetName()
-        {
-            return Name;
-        }
-        public void SetDescription(string description)
-        {
-            Description = description;
-        }
-
-        public void SetName(string name)
-        {
-            Name = name;
-        }
         
         public IEnumerable<IDialog> Next()
         {

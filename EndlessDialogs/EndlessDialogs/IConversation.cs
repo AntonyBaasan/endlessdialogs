@@ -2,17 +2,9 @@
 
 namespace EndlessDialogs
 {
-    public interface IConversation
+    public interface IConversation : IBasicObject
     {
         void SetStartDialog(IEnumerable<IDialog> dialog);
-
-        void SetName(string name);
-
-        string GetName();
-
-        void SetDescription(string description);
-
-        string GetDescription();
 
         IEnumerable<IDialog> Next();
 

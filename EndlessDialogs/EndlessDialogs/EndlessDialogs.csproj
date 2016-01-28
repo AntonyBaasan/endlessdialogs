@@ -40,11 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractBasicObject.cs" />
     <Compile Include="Conversation.cs" />
     <Compile Include="Dialog.cs" />
+    <Compile Include="IBasicObject.cs" />
     <Compile Include="IConversation.cs" />
     <Compile Include="IDialog.cs" />
+    <Compile Include="IScene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="StaticTextDictionary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

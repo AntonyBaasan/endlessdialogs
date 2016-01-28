@@ -52,6 +52,7 @@
     <Compile Include="Conversation\ConversationLinierTests.cs" />
     <Compile Include="Dialog\DialogTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene\SceneTests.cs" />
     <Compile Include="StaticText\StaticTextManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>

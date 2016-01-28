@@ -8,13 +8,15 @@ namespace EndlessDialogs
 
         string GetText();
 
+        void SetShortText(string text);
+
+        string GetShortText();
+
         IEnumerable<IDialog> GetNext();
 
         void AddNext(IDialog nextDialogs);
 
         void AddNext(IEnumerable<IDialog> nextDialogs);
-
-        void Visit();
 
         int VisitedAmout();
     }

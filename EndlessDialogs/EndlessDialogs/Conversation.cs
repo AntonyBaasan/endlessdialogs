@@ -29,8 +29,7 @@ namespace EndlessDialogs
         {
             Name = name;
         }
-
-
+        
         public IEnumerable<IDialog> Next()
         {
             if (nextDialogs == null || !nextDialogs.Any())

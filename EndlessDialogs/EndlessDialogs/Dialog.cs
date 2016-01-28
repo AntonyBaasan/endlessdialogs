@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EndlessDialogs
 {
     public class Dialog : IDialog
     {
-        public IDialog[] GetNext()
+        
+        public IEnumerable<IDialog> GetNext()
         {
             throw new NotImplementedException();
         }
@@ -14,12 +16,12 @@ namespace EndlessDialogs
             throw new NotImplementedException();
         }
 
-        public void SetNext(IDialog nextDialogs)
+        public void AddNext(IDialog nextDialogs)
         {
             throw new NotImplementedException();
         }
 
-        public void SetNext(IDialog[] nextDialogs)
+        public void AddNext(IEnumerable<IDialog> nextDialogs)
         {
             throw new NotImplementedException();
         }

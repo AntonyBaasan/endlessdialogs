@@ -5,7 +5,7 @@ namespace EndlessDialogs.Tests
 {
 
     [TestFixture]
-    public class StaticTextManagerTest
+    public class StaticTextManagerTests
     {
         StaticTextDictionary stm;
 

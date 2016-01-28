@@ -1,4 +1,6 @@
-﻿namespace EndlessDialogs
+﻿using System.Collections.Generic;
+
+namespace EndlessDialogs
 {
     public interface IDialog
     {
@@ -6,11 +8,11 @@
 
         string GetText();
 
-        IDialog[] GetNext();
+        IEnumerable<IDialog> GetNext();
 
-        void SetNext(IDialog nextDialogs);
+        void AddNext(IDialog nextDialogs);
 
-        void SetNext(IDialog[] nextDialogs);
+        void AddNext(IEnumerable<IDialog> nextDialogs);
 
         void Visit();
 

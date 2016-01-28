@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace EndlessDialogs.Tests
 {
     [TestFixture]
-    public class ConversationBranchingTest
+    public class ConversationBranchingTests
     {
         IConversation conversation;
         IDialog dialog1;

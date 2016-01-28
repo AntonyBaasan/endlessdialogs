@@ -1,66 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EndlessDialogs
 {
     public class Conversation : IConversation
     {
-        public void AddDialog(IDialog[] dialog)
-        {
-            throw new NotImplementedException();
-        }
+        private string Name;
+        private string Description;
 
-        public void AddDialog(IDialog dialog)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDialog[] GetAllDialogs()
-        {
-            throw new NotImplementedException();
-        }
-
+        private IEnumerable<IDialog> nextDialogs = null;
+        
         public string GetDescription()
         {
-            throw new NotImplementedException();
+            return Description;
         }
 
         public string GetName()
         {
-            throw new NotImplementedException();
+            return Name;
         }
-
-        public IDialog Next()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDialog Next(IDialog answer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveDialog(IDialog dialog)
-        {
-            throw new NotImplementedException();
-        }
-
         public void SetDescription(string description)
         {
-            throw new NotImplementedException();
+            Description = description;
         }
 
         public void SetName(string name)
         {
+            Name = name;
+        }
+
+
+        public IEnumerable<IDialog> Next()
+        {
+            if (nextDialogs == null || !nextDialogs.Any())
+                return null;
+            if (nextDialogs.Count() > 1)
+                throw new InvalidOperationException("Answer before go");
+            //else nextDialogs.Count() == 1 //has only one next dialog
+            IEnumerable<IDialog> previousDialogs = nextDialogs;
+            nextDialogs = nextDialogs.First().GetNext();
+            return previousDialogs;
+        }
+
+        public IEnumerable<IDialog> Answer(IDialog answer)
+        {
             throw new NotImplementedException();
         }
 
-        public void SetStartDialog(IDialog dialog)
+        public void SetStartDialog(IEnumerable<IDialog> dialog)
         {
-            throw new NotImplementedException();
+            nextDialogs = dialog;
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using System.Linq;
 using NSubstitute;
-
+using NUnit.Framework;
 
 namespace EndlessDialogs.Tests
 {
@@ -24,50 +23,20 @@ namespace EndlessDialogs.Tests
             dialog3 = Substitute.For<IDialog>();
             dialog4 = Substitute.For<IDialog>();
 
-            conversation.AddDialog(dialog1);
-            conversation.AddDialog(dialog2);
-            conversation.AddDialog(dialog3);
-            conversation.AddDialog(dialog4);
-
             //Make dialogs linies
             dialog1.GetNext().Returns(new IDialog[] { dialog2 });
             dialog2.GetNext().Returns(new IDialog[] { dialog3 });
             dialog3.GetNext().Returns(new IDialog[] { dialog4 });
-            dialog3.GetNext().Returns(new IDialog[0]);
+            dialog4.GetNext().Returns(new IDialog[0]);
         }
 
-        [Test]
-        public void Add_Dialog_Should_Throw_Argument_Exception_When_Null_Passed()
-        {
-            IDialog dialog = null;
-            Assert.Throws<ArgumentException>(()=>conversation.AddDialog(dialog));
-        }
-        [Test]
-        public void Add_Dialog_Should_Throw_Argument_Exception_When_Empty_Array_Passed()
-        {
-            IDialog[] dialogs = new IDialog[0];
-            Assert.Throws<ArgumentException>(() => conversation.AddDialog(dialogs));
-        }
-        [Test]
-        public void Conversation_Should_Have_List_of_Dialogs() {
-
-            Assert.Equals(conversation.GetAllDialogs().Length, 4);
-        }
-
-        [Test]
-        public void Conversation_Can_Remove_Dialog()
-        {
-            conversation.RemoveDialog(dialog2);
-
-            Assert.Equals(conversation.GetAllDialogs().Length, 3);
-        }
-
-        [Test]
+       
+       [Test]
         public void Should_Set_Start()
         {
-            conversation.SetStartDialog(dialog1);
+            conversation.SetStartDialog(new []{dialog1}.ToList());
 
-            Assert.Equals(conversation.Next(), dialog1);
+            Assert.AreEqual(dialog1, conversation.Next().First());
         }
 
         [Test]
@@ -79,6 +48,12 @@ namespace EndlessDialogs.Tests
         [Test]
         public void Sequince_Should_Work()
         {
+            conversation.SetStartDialog(new[] { dialog1 }.ToList());
+
+            Assert.AreEqual(conversation.Next().First(), dialog1);
+            Assert.AreEqual(conversation.Next().First(), dialog2);
+            Assert.AreEqual(conversation.Next().First(), dialog3);
+            Assert.AreEqual(conversation.Next().First(), dialog4);
             Assert.IsNull(conversation.Next());
         }
     }

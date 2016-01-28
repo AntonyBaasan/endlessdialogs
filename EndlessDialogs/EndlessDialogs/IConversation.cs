@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace EndlessDialogs
 {
     public interface IConversation
     {
-        void SetStartDialog(IDialog dialog);
-
-        void AddDialog(IDialog[] dialog);
-
-        void AddDialog(IDialog dialog);
-
-        void RemoveDialog(IDialog dialog);
-
-        IDialog[] GetAllDialogs();
+        void SetStartDialog(IEnumerable<IDialog> dialog);
 
         void SetName(string name);
 
@@ -26,9 +14,9 @@ namespace EndlessDialogs
 
         string GetDescription();
 
-        IDialog Next();
+        IEnumerable<IDialog> Next();
 
-        IDialog Next(IDialog answer);
+        IEnumerable<IDialog> Answer(IDialog answer);
 
     }
 }

@@ -1,16 +1,17 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
-namespace EndlessDialogs.Tests.StaticText
+namespace EndlessDialogs.Tests
 {
 
     [TestFixture]
-    class StaticTextManagerTest
+    public class StaticTextManagerTest
     {
-        StaticTextManager stm;
+        StaticTextDictionary stm;
 
         [SetUp]
         public void Setup() {
-            stm = new StaticTextManager();
+            stm = new StaticTextDictionary();
         }
 
         [Test]
@@ -20,20 +21,36 @@ namespace EndlessDialogs.Tests.StaticText
             stm.AddText("player2name", "Mike");
             stm.AddText("player3name", "Test");
 
-            Assert.Equals(stm.GetText("player1name"), "Jonh");
+            Assert.AreEqual(stm.GetText("player1name"), "Jonh");
+        }
+        [Test]
+        public void Should_Throw_Exception_When_Add_NULL()
+        {
+            stm.AddText("player1name", "Jonh");
+
+            Assert.Throws<ArgumentException>(() => { stm.AddText("test", null); });
+            Assert.Throws<ArgumentException>(() => { stm.AddText(null, "test"); });
         }
 
+        [Test]
+        public void Should_Throw_Exception_When_Add_Empty()
+        {
+            stm.AddText("player1name", "Jonh");
+
+            Assert.Throws<ArgumentException>(() => { stm.AddText("test", ""); });
+            Assert.Throws<ArgumentException>(() => { stm.AddText("", "test"); });
+        }
         [Test]
         public void Add_Text_Should_Update_Old_Text_If_Exists()
         {
             stm.AddText("player1name", "Jonh");
-            Assert.Equals(stm.GetText("player1name"), "Jonh");
+            Assert.AreEqual(stm.GetText("player1name"), "Jonh");
 
             stm.AddText("player1name", "Mike");
-            Assert.Equals(stm.GetText("player1name"), "Mike");
+            Assert.AreEqual(stm.GetText("player1name"), "Mike");
 
             stm.AddText("player1name", "Test");
-            Assert.Equals(stm.GetText("player1name"), "Test");
+            Assert.AreEqual(stm.GetText("player1name"), "Test");
         }
 
         [Test]
@@ -42,7 +59,7 @@ namespace EndlessDialogs.Tests.StaticText
             stm.AddText("player1name", "Jonh");
             stm.RemoveText("player1name");
 
-            Assert.Equals(stm.GetText("player1name"), "{player1name}");
+            Assert.AreEqual(stm.GetText("player1name"), "");
         }
     }
 }

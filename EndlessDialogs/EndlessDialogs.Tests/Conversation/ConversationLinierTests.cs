@@ -56,5 +56,7 @@ namespace EndlessDialogs.Tests
             Assert.AreEqual(conversation.Next().First(), dialog4);
             Assert.IsNull(conversation.Next());
         }
+
+        
     }
 }

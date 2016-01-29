@@ -39,7 +39,7 @@ namespace EndlessDialogs.Tests
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
 
-            Assert.Throws<InvalidOperationException>(()=> { conversation.Next(); });
+            Assert.Throws<InvalidOperationException>(() => { conversation.Next(); });
         }
 
         [Test]
@@ -89,6 +89,60 @@ namespace EndlessDialogs.Tests
 
             Assert.AreEqual(1, nextDialogs.Count());
             Assert.AreEqual(dialog3, nextDialogs.First());
+        }
+
+        [Test]
+        public void Get_Next_Should_Call_Visited_On_Dialog()
+        {
+            conversation.SetStartDialog(new[] { dialog1 }.ToList());
+
+            conversation.Next();
+
+            dialog1.Received().Visit();
+        }
+
+        [Test]
+        public void Get_Next_Should_Not_Call_Visited_If_It_Return_Answers()
+        {
+            try
+            {
+                conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+                conversation.Next();
+            }
+            catch
+            {
+            }
+
+            dialog1.DidNotReceive().Visit();
+            dialog2.DidNotReceive().Visit();
+        }
+
+        [Test]
+        public void Answer_Should_Call_Visited_On_Answer()
+        {
+            conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+
+            conversation.Answer(dialog1);
+
+            dialog1.Received().Visit();
+            dialog2.DidNotReceive().Visit();
+        }
+
+        [Test]
+        public void Answer_Should_Call_Visited_On_Next_If_That_Is_Not_Answers()
+        {
+            try
+            {
+                conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+
+                conversation.Answer(dialog3);
+            }
+            catch
+            {
+            }
+
+            dialog1.DidNotReceive().Visit();
+            dialog2.DidNotReceive().Visit();
         }
 
     }

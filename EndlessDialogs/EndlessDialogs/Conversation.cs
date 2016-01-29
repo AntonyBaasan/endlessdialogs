@@ -16,7 +16,9 @@ namespace EndlessDialogs
             if (nextDialogs.Count() > 1)
                 throw new InvalidOperationException("Select an answer before go to next");
             //else nextDialogs.Count() == 1 //has only one next dialog
+
             IEnumerable<IDialog> previousDialogs = nextDialogs;
+            nextDialogs.First().Visit();
             nextDialogs = nextDialogs.First().GetNext();
             return previousDialogs;
 
@@ -29,6 +31,7 @@ namespace EndlessDialogs
             if (answer == null || !nextDialogs.Contains(answer))
                 throw new ArgumentException("Wrong answer passed!");
 
+            answer.Visit();
             nextDialogs = answer.GetNext();
             return nextDialogs;
         }

@@ -1,30 +1,28 @@
-﻿using System;
-
-namespace EndlessDialogs
+﻿namespace EndlessDialogs
 {
     public abstract class AbstractBasicObject : IBasicObject
     {
-        protected string Name;
-        protected string Description;
+        protected string name;
+        protected string description;
 
         public string GetDescription()
         {
-            return Description;
+            return description;
         }
 
         public string GetName()
         {
-            return Name;
+            return name;
         }
 
         public void SetDescription(string description)
         {
-            Description = description;
+            this.description = description;
         }
 
         public void SetName(string name)
         {
-            Name = name;
+            this.name = name;
         }
     }
 }

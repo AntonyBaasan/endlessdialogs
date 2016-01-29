@@ -1,44 +1,65 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EndlessDialogs
 {
     public class Dialog : IDialog
     {
-        
+        public List<IDialog> nextDialogs;
+        private int visited;
+        public string text;
+        public string shortText;
+
+        public Dialog()
+        {
+            nextDialogs = new List<IDialog>();
+        }
+
         public IEnumerable<IDialog> GetNext()
         {
-            throw new NotImplementedException();
+            if(nextDialogs != null && !nextDialogs.Any())
+                return null;
+
+            return nextDialogs;
         }
 
         public string GetText()
         {
-            throw new NotImplementedException();
+            return text;
         }
 
-        public void AddNext(IDialog nextDialogs)
+        public void AddNext(IDialog dialog)
         {
-            throw new NotImplementedException();
+            if (dialog == null)
+                throw new ArgumentException("Can't assign empty Dialog!");
+            nextDialogs.Add(dialog);
         }
 
-        public void AddNext(IEnumerable<IDialog> nextDialogs)
+        public void AddNext(IEnumerable<IDialog> dialogs)
         {
-            throw new NotImplementedException();
+            if(dialogs == null || !dialogs.Any())
+                throw new ArgumentException("Can't assign empty Dialog list!");
+
+            foreach (var dialog in dialogs)
+            {
+                AddNext(dialog);
+            }
         }
 
         public void SetText(string text)
         {
-            throw new NotImplementedException();
+            this.text = text;
         }
 
-        private void Visit()
+        public void Visit()
         {
-            throw new NotImplementedException();
+            visited++;
         }
 
         public int VisitedAmout()
         {
-            throw new NotImplementedException();
+            return visited;
         }
 
         public void SetShortText(string text)

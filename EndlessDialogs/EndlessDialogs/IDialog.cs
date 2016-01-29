@@ -18,6 +18,8 @@ namespace EndlessDialogs
 
         void AddNext(IEnumerable<IDialog> nextDialogs);
 
+        void Visit();
+
         int VisitedAmout();
     }
 }

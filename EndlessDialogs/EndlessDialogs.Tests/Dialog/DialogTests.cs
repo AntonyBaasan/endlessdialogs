@@ -35,9 +35,18 @@ namespace EndlessDialogs.Tests
         }
 
         [Test]
+        public void Add_Next_Array_Should_Increase_Its_Dialogs_Amount()
+        {
+            dialog1.AddNext(new [] { dialog1, dialog2 }); 
+
+            Assert.AreEqual(2, dialog1.GetNext().Count());
+        }
+
+        [Test]
         public void Add_Next_Throws_Argument_Exception_If_Null_Passed()
         {
-            Assert.Throws<ArgumentException>(() => { dialog1.GetNext(); });
+            IDialog dialog = null;
+            Assert.Throws<ArgumentException>(() => { dialog1.AddNext(dialog); });
         }
 
         [Test]
@@ -65,17 +74,10 @@ namespace EndlessDialogs.Tests
         [Test]
         public void Visited_Method_Should_Increase_VistedAmount()
         {
-            dialog1.AddNext(dialog4);
-            dialog2.AddNext(dialog4);
-            dialog3.AddNext(dialog4);
-            Assert.AreEqual(0, dialog4.VisitedAmout());
+            Assert.AreEqual(0, dialog1.VisitedAmout());
 
-            dialog1.GetNext();
-            Assert.AreEqual(1, dialog4.VisitedAmout());
-            dialog2.GetNext();
-            Assert.AreEqual(2, dialog4.VisitedAmout());
-            dialog3.GetNext();
-            Assert.AreEqual(3, dialog4.VisitedAmout());
+            dialog1.Visit();
+            Assert.AreEqual(1, dialog1.VisitedAmout());
 
         }
 

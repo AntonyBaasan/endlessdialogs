@@ -33,6 +33,8 @@ namespace EndlessDialogs
         {
             if (dialog == null)
                 throw new ArgumentException("Can't assign empty Dialog!");
+            if (dialog == this)
+                throw new ArgumentException("Can't assign self as next!");
             nextDialogs.Add(dialog);
         }
 

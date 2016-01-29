@@ -5,39 +5,52 @@ namespace EndlessDialogs
 {
     public class Scene : AbstractBasicObject, IScene
     {
-        public void AddConversation(IConversation conversation)
+
+        private List<IConversation> conversationList;
+
+        public Scene()
         {
-            throw new NotImplementedException();
+            conversationList = new List<IConversation>();
         }
 
-        public void AddConversation(IEnumerable<IConversation> conversation)
+        public void AddConversation(IConversation conversation)
         {
-            throw new NotImplementedException();
+            if (conversation == null)
+                throw new ArgumentException("Can't add Null Conversation!");
+
+            if (conversationList.Contains(conversation))
+                return;
+
+            conversationList.Add(conversation);
+        }
+
+        public void AddConversation(IEnumerable<IConversation> conversations)
+        {
+            if (conversations == null)
+                throw new ArgumentException("Can't add Null Conversation List!");
+
+            foreach (var conv in conversations)
+            {
+                conversationList.Add(conv);
+            }
         }
 
         public IEnumerable<IConversation> GetConversations()
         {
-            throw new NotImplementedException();
+            return conversationList;
         }
 
-        public void LoadScene(string filename)
+        public void RemoveConversation(IEnumerable<IConversation> conversations)
         {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveConversation(IEnumerable<IConversation> conversation)
-        {
-            throw new NotImplementedException();
+            foreach (var conversation in conversations)
+            {
+                RemoveConversation(conversation);
+            }
         }
 
         public void RemoveConversation(IConversation conversation)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SaveScene(string filename)
-        {
-            throw new NotImplementedException();
+            conversationList.Remove(conversation);
         }
     }
 }

@@ -28,8 +28,8 @@ namespace EndlessDialogs.Tests
         [Test]
         public void Add_Next_Should_Increase_Its_Dialogs_Amount()
         {
-            dialog1.AddNext(dialog1);
             dialog1.AddNext(dialog2);
+            dialog1.AddNext(dialog3);
 
             Assert.AreEqual(2, dialog1.GetNext().Count());
         }
@@ -37,7 +37,7 @@ namespace EndlessDialogs.Tests
         [Test]
         public void Add_Next_Array_Should_Increase_Its_Dialogs_Amount()
         {
-            dialog1.AddNext(new [] { dialog1, dialog2 }); 
+            dialog1.AddNext(new [] { dialog2, dialog3 }); 
 
             Assert.AreEqual(2, dialog1.GetNext().Count());
         }
@@ -79,6 +79,12 @@ namespace EndlessDialogs.Tests
             dialog1.Visit();
             Assert.AreEqual(1, dialog1.VisitedAmout());
 
+        }
+
+        [Test]
+        public void Should_Not_Add_Next_Self_Argument_Exception_Throws()
+        {
+            Assert.Throws<ArgumentException>(() => { dialog1.AddNext(dialog1); });
         }
 
     }

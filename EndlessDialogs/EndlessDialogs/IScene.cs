@@ -6,16 +6,12 @@ namespace EndlessDialogs
     {
         IEnumerable<IConversation> GetConversations();
 
-        void AddConversation(IEnumerable<IConversation> conversation);
+        void AddConversation(IEnumerable<IConversation> conversations);
 
         void AddConversation(IConversation conversation);
 
         void RemoveConversation(IConversation conversation);
 
-        void RemoveConversation(IEnumerable<IConversation> conversation);
-
-        void LoadScene(string filename);
-
-        void SaveScene(string filename);
+        void RemoveConversation(IEnumerable<IConversation> conversations);
     }
 }

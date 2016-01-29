@@ -68,5 +68,39 @@ namespace EndlessDialogs.Tests
             IConversation conv = null;
             Assert.Throws<ArgumentException>(() => { scene.AddConversation(conv); });
         }
+
+        [Test]
+        public void Should_Remove_Conversation()
+        {
+            scene.AddConversation(conversation1);
+            scene.AddConversation(conversation2);
+
+            scene.RemoveConversation(conversation2);
+
+            Assert.AreEqual(1, scene.GetConversations().Count());
+            Assert.AreEqual(conversation1, scene.GetConversations().First());
+        }
+
+        [Test]
+        public void Should_Remove_Conversation_List()
+        {
+            scene.AddConversation(conversation1);
+            scene.AddConversation(conversation2);
+
+            scene.RemoveConversation(new [] { conversation1 , conversation2} );
+
+            Assert.AreEqual(0, scene.GetConversations().Count());
+        }
+
+        [Test]
+        public void Remove_Non_Exist_Conversation_Do_Nothing()
+        {
+            scene.AddConversation(conversation1);
+            scene.AddConversation(conversation2);
+
+            scene.RemoveConversation(conversation3);
+
+            Assert.AreEqual(2, scene.GetConversations().Count());
+        }
     }
 }

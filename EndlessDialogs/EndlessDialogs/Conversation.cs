@@ -8,13 +8,13 @@ namespace EndlessDialogs
     {
 
         private IEnumerable<IDialog> nextDialogs = null;
-        private bool waitingAnswer = false;
+        private bool isWaitingAnswer = false;
         
         public IEnumerable<IDialog> Next()
         {
             if (nextDialogs == null || !nextDialogs.Any())
                 return null;
-            if (waitingAnswer)
+            if (isWaitingAnswer)
                 throw new InvalidOperationException("Select an answer before go to next");
 
             IEnumerable<IDialog> previousDialogs = nextDialogs;
@@ -24,7 +24,7 @@ namespace EndlessDialogs
             if (nextDialogs.Count() == 1)
                 nextDialogs = nextDialogs.First().GetNext();
             else
-                waitingAnswer = true;
+                isWaitingAnswer = true;
             
             return previousDialogs;
 
@@ -32,12 +32,12 @@ namespace EndlessDialogs
 
         public void Answer(IDialog answer)
         {
-            if(!waitingAnswer)
+            if(!isWaitingAnswer)
                 throw new InvalidOperationException("Not waiting for an answer");
             if (answer == null || !nextDialogs.Contains(answer))
                 throw new ArgumentException("Wrong answer passed!");
 
-            waitingAnswer = false;
+            isWaitingAnswer = false;
             nextDialogs = answer.GetNext();
         }
 
@@ -46,5 +46,9 @@ namespace EndlessDialogs
             nextDialogs = dialog;
         }
 
+        public bool IsWaitingAnswer()
+        {
+            return isWaitingAnswer;
+        }
     }
 }

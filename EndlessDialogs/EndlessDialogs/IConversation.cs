@@ -10,5 +10,7 @@ namespace EndlessDialogs
 
         void Answer(IDialog answer);
 
+        bool IsWaitingAnswer();
+
     }
 }

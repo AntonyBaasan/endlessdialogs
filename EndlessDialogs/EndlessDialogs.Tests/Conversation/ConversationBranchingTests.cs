@@ -48,6 +48,23 @@ namespace EndlessDialogs.Tests
         }
 
         [Test]
+        public void IsWaitingAnswer_Method_Return_False_After_SetStartDialog()
+        {
+            conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+
+            Assert.AreEqual(false, conversation.IsWaitingAnswer());
+        }
+
+        [Test]
+        public void IsWaitingAnswer_Method_Return_True_If_Multiple_Option()
+        {
+            conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+            conversation.Next();
+
+            Assert.AreEqual(true, conversation.IsWaitingAnswer());
+        }
+
+        [Test]
         public void Answer_Should_Work()
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());

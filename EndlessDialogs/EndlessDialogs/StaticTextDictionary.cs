@@ -14,8 +14,10 @@ namespace EndlessDialogs
 
         public void AddText(string key, string value)
         {
-            if (key == null || value == null)
-                throw new ArgumentException("Static text can not be null!");
+            if (key == null)
+                throw new ArgumentException("Static text can not be null!", nameof(key));
+            if (value == null)
+                throw new ArgumentException("Static text can not be null!", nameof(value));
             if (key.Equals("") || value.Equals(""))
                 throw new ArgumentException("Static text can not be empty!");
 

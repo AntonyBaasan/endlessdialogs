@@ -8,7 +8,7 @@ namespace EndlessDialogs
 
         IEnumerable<IDialog> Next();
 
-        IEnumerable<IDialog> Answer(IDialog answer);
+        void Answer(IDialog answer);
 
     }
 }

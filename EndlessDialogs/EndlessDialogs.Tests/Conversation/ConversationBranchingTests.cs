@@ -22,10 +22,15 @@ namespace EndlessDialogs.Tests
             conversation = new Conversation();
 
             dialog1 = Substitute.For<IDialog>();
+            dialog1.GetText().Returns("Dialog1");
             dialog2 = Substitute.For<IDialog>();
+            dialog2.GetText().Returns("Dialog2");
             dialog3 = Substitute.For<IDialog>();
+            dialog3.GetText().Returns("Dialog3");
             dialog4 = Substitute.For<IDialog>();
+            dialog4.GetText().Returns("Dialog4");
             dialog5 = Substitute.For<IDialog>();
+            dialog5.GetText().Returns("Dialog5");
 
             //Make dialogs linies
             dialog1.GetNext().Returns(new[] { dialog3 });
@@ -35,11 +40,11 @@ namespace EndlessDialogs.Tests
         }
 
         [Test]
-        public void If_Start_Is_Branched_Wait_For_Answers()
+        public void If_Start_Is_Branched_Get_Available_Dialogs()
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
 
-            Assert.Throws<InvalidOperationException>(() => { conversation.Next(); });
+            Assert.AreEqual(2, conversation.Next().Count());
         }
 
         [Test]
@@ -47,7 +52,9 @@ namespace EndlessDialogs.Tests
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
 
-            IEnumerable<IDialog> nextDialogs = conversation.Answer(dialog1);
+            conversation.Next();
+            conversation.Answer(dialog1);
+            IEnumerable<IDialog> nextDialogs = conversation.Next();
 
             Assert.AreEqual(1, nextDialogs.Count());
             Assert.AreEqual(dialog3, nextDialogs.First());
@@ -57,6 +64,7 @@ namespace EndlessDialogs.Tests
         public void Answer_Throws_Argument_Exception_If_Wrong_Dialog_Passed()
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+            conversation.Next();
 
             //Pass not available answer
             Assert.Throws<ArgumentException>(() => { conversation.Answer(dialog4); });
@@ -66,6 +74,7 @@ namespace EndlessDialogs.Tests
         public void Answer_Throws_Argument_Exception_If_Null_Dialog_Passed()
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+            conversation.Next();
 
             //Pass not available answer
             Assert.Throws<ArgumentException>(() => { conversation.Answer(null); });
@@ -85,7 +94,9 @@ namespace EndlessDialogs.Tests
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
 
-            IEnumerable<IDialog> nextDialogs = conversation.Answer(dialog1);
+            conversation.Next();
+            conversation.Answer(dialog1);
+            IEnumerable<IDialog> nextDialogs = conversation.Next();
 
             Assert.AreEqual(1, nextDialogs.Count());
             Assert.AreEqual(dialog3, nextDialogs.First());
@@ -104,28 +115,22 @@ namespace EndlessDialogs.Tests
         [Test]
         public void Get_Next_Should_Not_Call_Visited_If_It_Return_Answers()
         {
-            try
-            {
-                conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
-                conversation.Next();
-            }
-            catch
-            {
-            }
+            conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+            conversation.Next();
 
-            dialog1.DidNotReceive().Visit();
-            dialog2.DidNotReceive().Visit();
+            dialog1.Received().Visit();
+            dialog2.Received().Visit();
         }
 
         [Test]
-        public void Answer_Should_Call_Visited_On_Answer()
+        public void Answer_Should_Not_Call_Visited_On_Answer()
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
 
+            conversation.Next();
             conversation.Answer(dialog1);
 
-            dialog1.Received().Visit();
-            dialog2.DidNotReceive().Visit();
+            dialog1.Received(1).Visit();
         }
 
         [Test]
@@ -143,6 +148,40 @@ namespace EndlessDialogs.Tests
 
             dialog1.DidNotReceive().Visit();
             dialog2.DidNotReceive().Visit();
+        }
+
+        [Test]
+        public void If_Waiting_For_Answer_Throw_Invalid_Operation_Exception()
+        {
+            conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
+
+            conversation.Next();
+            Assert.Throws<InvalidOperationException>(() => { conversation.Next(); });
+        }
+
+        [Test]
+        public void If_Waiting_For_Answer_And_Answered_Correctly_GetNext_Should_Work_Correctly()
+        {
+            Dialog d1 = new Dialog() {text = "d1"};
+            Dialog d2 = new Dialog() {text = "d2"};
+            Dialog d3 = new Dialog() {text = "d3"};
+            Dialog d4 = new Dialog() {text = "d4"};
+            Dialog d5 = new Dialog() {text = "d5" };
+
+            d1.AddNext(d3);
+            d2.AddNext(d3);
+            d3.AddNext(new[] { d4, d5 });
+
+            conversation.SetStartDialog(new[] { d1, d2 }.ToList());
+
+            conversation.Next();
+            conversation.Answer(d1);//return Dialog3
+            IEnumerable<IDialog> nextDialogs = conversation.Next();
+            Assert.AreEqual(d3, nextDialogs.First());
+
+            nextDialogs = conversation.Next();
+            //Assert.AreEqual(dialog3, nextDialogs.First());
+            Assert.AreEqual(d4, nextDialogs.First());
         }
 
     }

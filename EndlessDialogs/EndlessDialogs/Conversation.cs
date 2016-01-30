@@ -8,32 +8,37 @@ namespace EndlessDialogs
     {
 
         private IEnumerable<IDialog> nextDialogs = null;
+        private bool waitingAnswer = false;
         
         public IEnumerable<IDialog> Next()
         {
             if (nextDialogs == null || !nextDialogs.Any())
                 return null;
-            if (nextDialogs.Count() > 1)
+            if (waitingAnswer)
                 throw new InvalidOperationException("Select an answer before go to next");
-            //else nextDialogs.Count() == 1 //has only one next dialog
 
             IEnumerable<IDialog> previousDialogs = nextDialogs;
-            nextDialogs.First().Visit();
-            nextDialogs = nextDialogs.First().GetNext();
+            foreach (var previousDialog in previousDialogs)
+                previousDialog.Visit();
+
+            if (nextDialogs.Count() == 1)
+                nextDialogs = nextDialogs.First().GetNext();
+            else
+                waitingAnswer = true;
+            
             return previousDialogs;
 
         }
 
-        public IEnumerable<IDialog> Answer(IDialog answer)
+        public void Answer(IDialog answer)
         {
-            if(nextDialogs == null || nextDialogs.Count() <= 1)
+            if(!waitingAnswer)
                 throw new InvalidOperationException("Not waiting for an answer");
             if (answer == null || !nextDialogs.Contains(answer))
                 throw new ArgumentException("Wrong answer passed!");
 
-            answer.Visit();
+            waitingAnswer = false;
             nextDialogs = answer.GetNext();
-            return nextDialogs;
         }
 
         public void SetStartDialog(IEnumerable<IDialog> dialog)

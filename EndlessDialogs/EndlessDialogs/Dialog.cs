@@ -16,6 +16,16 @@ namespace EndlessDialogs
             nextDialogs = new List<IDialog>();
         }
 
+        public Dialog(string text) : this()
+        {
+            this.text = text;
+        }
+
+        public Dialog(string text, string shortText) : this(text)
+        {
+            this.shortText = shortText;
+        }
+
         public IEnumerable<IDialog> GetNext()
         {
             if(nextDialogs != null && !nextDialogs.Any())

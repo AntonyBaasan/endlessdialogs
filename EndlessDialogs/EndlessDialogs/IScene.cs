@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EndlessDialogs
 {
@@ -7,7 +8,6 @@ namespace EndlessDialogs
         IEnumerable<IConversation> GetConversations();
 
         void AddConversation(IEnumerable<IConversation> conversations);
-
         void AddConversation(IConversation conversation);
 
         void RemoveConversation(IConversation conversation);

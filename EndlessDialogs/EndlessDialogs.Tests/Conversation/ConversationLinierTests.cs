@@ -36,13 +36,13 @@ namespace EndlessDialogs.Tests
         {
             conversation.SetStartDialog(new[] { dialog1 }.ToList());
 
-            Assert.AreEqual(dialog1, conversation.Next().First());
+            Assert.AreEqual(dialog1, conversation.CurrentDialogs().First());
         }
 
         [Test]
         public void If_Not_Set_Start_Should_Return_NULL()
         {
-            Assert.IsNull(conversation.Next());
+            Assert.AreEqual(0, conversation.CurrentDialogs().Count());
         }
 
         [Test]
@@ -50,11 +50,17 @@ namespace EndlessDialogs.Tests
         {
             conversation.SetStartDialog(new[] { dialog1 }.ToList());
 
-            Assert.AreEqual(conversation.Next().First(), dialog1);
-            Assert.AreEqual(conversation.Next().First(), dialog2);
-            Assert.AreEqual(conversation.Next().First(), dialog3);
-            Assert.AreEqual(conversation.Next().First(), dialog4);
-            Assert.IsNull(conversation.Next());
+            Assert.AreEqual(conversation.CurrentDialogs().First(), dialog1);
+            conversation.Next();
+            Assert.AreEqual(conversation.CurrentDialogs().First(), dialog2);
+            conversation.Next();
+            Assert.AreEqual(conversation.CurrentDialogs().First(), dialog3);
+            conversation.Next();
+            Assert.AreEqual(conversation.CurrentDialogs().First(), dialog4);
+            conversation.Next();
+
+            Assert.IsNotNull(conversation.CurrentDialogs());
+            Assert.AreEqual(0, conversation.CurrentDialogs().Count());
         }
 
         

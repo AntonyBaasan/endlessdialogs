@@ -6,7 +6,9 @@ namespace EndlessDialogs
     {
         void SetStartDialog(IEnumerable<IDialog> dialog);
 
-        IEnumerable<IDialog> Next();
+        void Next();
+
+        IEnumerable<IDialog> CurrentDialogs();
 
         void Answer(IDialog answer);
 

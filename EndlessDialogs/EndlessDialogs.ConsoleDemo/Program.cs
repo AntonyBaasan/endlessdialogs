@@ -36,35 +36,36 @@ namespace EndlessDialogs.ConsoleDemo
 
         public static void ConversationRunner(IConversation conversation)
         {
-            IEnumerable<IDialog> nextDialogs = conversation.Next().ToList();
+            IEnumerable<IDialog> currentDialogs = conversation.CurrentDialogs().ToList();
 
             Console.WriteLine(conversation.GetDescription());
             Console.WriteLine("");
             Console.WriteLine("----------------------------");
 
-            while (nextDialogs != null)
+            while (currentDialogs.Count() > 0)
             {
-                if (nextDialogs.Count() == 1)
+                if (currentDialogs.Count() == 1)
                 {
-                    Console.WriteLine("-" + nextDialogs.First().GetText());
+                    Console.WriteLine("-" + currentDialogs.First().GetText());
                     Console.ReadKey();
+                    conversation.Next();
                 }
-                else if (nextDialogs.Count() > 1)
+                else if (currentDialogs.Count() > 1)
                 {
-                    Console.WriteLine("(Select an answer) 1-"+nextDialogs.Count()+")");
+                    Console.WriteLine("(Select an answer) 1-"+currentDialogs.Count()+")");
                     int i = 1;
-                    foreach (var dialog in nextDialogs)
+                    foreach (var dialog in currentDialogs)
                     {
                         Console.WriteLine("    "+i+")"+dialog.GetText());
                         i++;
                     }
 
-                    int answer = ReadAnswerNumber(nextDialogs.Count());
+                    int answer = ReadAnswerNumber(currentDialogs.Count());
 
-                    conversation.Answer(nextDialogs.ToList()[answer-1]);
+                    conversation.Answer(currentDialogs.ToList()[answer-1]);
                 }
-
-                nextDialogs = conversation.Next();
+                
+                currentDialogs = conversation.CurrentDialogs();
             }
         }
 

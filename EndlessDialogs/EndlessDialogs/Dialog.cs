@@ -76,12 +76,12 @@ namespace EndlessDialogs
 
         public void SetShortText(string text)
         {
-            throw new NotImplementedException();
+            shortText = text;
         }
 
         public string GetShortText()
         {
-            throw new NotImplementedException();
+            return shortText;
         }
     }
 }

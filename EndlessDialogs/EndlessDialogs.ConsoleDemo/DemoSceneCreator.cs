@@ -48,8 +48,8 @@
             IDialog dialog3 = new Dialog("Nice to meet you Player2");
             IDialog dialog4 = new Dialog("Nice to meet you Player3");
 
-            IDialog dialog5 = new Dialog("I am a software library that help developers to make conversation system.");
-            IDialog dialog6 = new Dialog("Got you.");
+            IDialog dialog5 = new Dialog("Bye!.");
+            IDialog dialog6 = new Dialog("Fare well ???.");
 
             //Create dialog connections. In this case it is linear conversation
             dialog1.AddNext(new[] { dialogAnwer1, dialogAnwer2, dialogAnwer3 });
@@ -57,6 +57,12 @@
             dialogAnwer1.AddNext(new[] { dialog2 });
             dialogAnwer2.AddNext(new[] { dialog3 });
             dialogAnwer3.AddNext(new[] { dialog4 });
+
+            dialog2.AddNext(new[] { dialog5 });
+            dialog3.AddNext(new[] { dialog5 });
+            dialog4.AddNext(new[] { dialog5 });
+
+            dialog5.AddNext(new[] { dialog6 });
 
             //Create a conversation
             IConversation conversation1 = new Conversation();

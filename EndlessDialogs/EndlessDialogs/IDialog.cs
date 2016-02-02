@@ -4,6 +4,10 @@ namespace EndlessDialogs
 {
     public interface IDialog
     {
+        void SetSpeaker(Speaker speaker);
+
+        Speaker GetSpeaker();
+
         void SetText(string text);
 
         string GetText();

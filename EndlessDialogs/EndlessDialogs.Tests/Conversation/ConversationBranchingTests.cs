@@ -135,8 +135,8 @@ namespace EndlessDialogs.Tests
         {
             conversation.SetStartDialog(new[] { dialog1, dialog2 }.ToList());
 
-            try { conversation.Next(); } 
-            catch{}
+            try { conversation.Next(); }
+            catch { }
 
             dialog1.DidNotReceive().Visit();
             dialog2.DidNotReceive().Visit();
@@ -194,11 +194,11 @@ namespace EndlessDialogs.Tests
         [Test]
         public void If_Waiting_For_Answer_And_Answered_Correctly_GetNext_Should_Work_Correctly()
         {
-            Dialog d1 = new Dialog() {text = "d1"};
-            Dialog d2 = new Dialog() {text = "d2"};
-            Dialog d3 = new Dialog() {text = "d3"};
-            Dialog d4 = new Dialog() {text = "d4"};
-            Dialog d5 = new Dialog() {text = "d5" };
+            Dialog d1 = new Dialog("d1");
+            Dialog d2 = new Dialog("d2");
+            Dialog d3 = new Dialog("d3");
+            Dialog d4 = new Dialog("d4");
+            Dialog d5 = new Dialog("d5");
 
             d1.AddNext(d3);
             d2.AddNext(d3);

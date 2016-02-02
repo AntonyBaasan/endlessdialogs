@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace EndlessDialogs
 {
+    [Serializable]
+    [DataContract]
+    [KnownType(typeof(Scene))]
     public class Scene : AbstractBasicObject, IScene
     {
-
+        [DataMember]
         private List<IConversation> conversationList;
+
+        private static IEnumerable<Type> _sceneTypes;
 
         public Scene()
         {
@@ -52,5 +60,15 @@ namespace EndlessDialogs
         {
             conversationList.Remove(conversation);
         }
+
+        //private static IEnumerable<Type> GetKnownSceneTypes()
+        //{
+        //    if (_sceneTypes == null)
+        //        _sceneTypes = Assembly.GetExecutingAssembly()
+        //                                .GetTypes()
+        //                                .Where(t => typeof(Scene).IsAssignableFrom(t))
+        //                                .ToList();
+        //    return _sceneTypes;
+        //}
     }
 }

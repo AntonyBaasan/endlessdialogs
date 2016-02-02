@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EndlessDialogs
 {
+
+    [Serializable]
+    [DataContract]
+    [KnownType(typeof(Dialog))]
     public class Dialog : IDialog
     {
+        [DataMember]
         public List<IDialog> nextDialogs;
+        [DataMember]
         private int visited;
-        public string text;
-        public string shortText;
+        [DataMember]
+        private string text;
+        [DataMember]
+        private string shortText;
+        [DataMember]
+        private Speaker speaker;
 
         public Dialog()
         {
@@ -82,6 +93,17 @@ namespace EndlessDialogs
         public string GetShortText()
         {
             return shortText;
+        }
+
+
+        public void SetSpeaker(Speaker speaker)
+        {
+            this.speaker = speaker;
+        }
+
+        public Speaker GetSpeaker()
+        {
+            return speaker;
         }
     }
 }

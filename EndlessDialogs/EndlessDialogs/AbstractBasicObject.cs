@@ -1,8 +1,15 @@
-﻿namespace EndlessDialogs
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace EndlessDialogs
 {
+    [Serializable]
+    [DataContract]
     public abstract class AbstractBasicObject : IBasicObject
     {
+        [DataMember]
         protected string name;
+        [DataMember]
         protected string description;
 
         public string GetDescription()

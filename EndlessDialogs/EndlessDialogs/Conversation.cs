@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace EndlessDialogs
 {
+    [Serializable]
+    [DataContract]
+    [KnownType(typeof(Conversation))]
     public class Conversation : AbstractBasicObject, IConversation
     {
-        private IEnumerable<IDialog> currentDialogs = null;
-        private bool isWaitingAnswer = false;
+        [DataMember]
+        private IEnumerable<IDialog> currentDialogs;
+        [DataMember]
+        private bool isWaitingAnswer;
 
         /// <summary>
         /// Move current state to next dialog

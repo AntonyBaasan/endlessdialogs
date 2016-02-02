@@ -18,15 +18,31 @@ namespace EndlessDialogs.ConsoleDemo
             Console.WriteLine("EndlessDialogs library demonstration");
             Console.WriteLine("----------------------------");
 
+            Console.WriteLine("Example");
+            Console.WriteLine("1) Linear conversation");
+            Console.WriteLine("2) Branched conversation");
+            Console.WriteLine("3) Save Scene");
+            Console.WriteLine("4) Load Scene");
+            int answer = ReadAnswerNumber(1, 4);
 
-            IScene scene1 = DemoSceneCreator.CreateScene1();
-            //IConversation conversation1 = scene1.GetConversations().First();
-            //ConversationRunner(conversation1);
+            IScene scene = DemoSceneCreator.CreateScene1();
+            if (answer == 1)
+                ConversationRunner(scene.GetConversations().First());
+            else if(answer == 2)
+                ConversationRunner(scene.GetConversations().Skip(1).ToList().First());
+            else if (answer == 3)
+            {
+                new SceneFileSerializer().Serialize(scene, "TestScene.conv");
+                Console.WriteLine("Scene saved to file: TestScene.xml");
+            }
+            else if (answer == 4)
+            {
+                IScene loadedScene = new SceneFileSerializer().Deserialize("TestScene.conv");
+                Console.WriteLine("Scene loaded from file: TestScene.xml");
+                ConversationRunner(loadedScene.GetConversations().Skip(1).ToList().First());
+            }
 
-            IConversation conversation2 = scene1.GetConversations().Skip(1).ToList().First();
-            ConversationRunner(conversation2);
 
-            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("----------------------------");
@@ -60,7 +76,7 @@ namespace EndlessDialogs.ConsoleDemo
                         i++;
                     }
 
-                    int answer = ReadAnswerNumber(currentDialogs.Count());
+                    int answer = ReadAnswerNumber(1, currentDialogs.Count());
 
                     conversation.Answer(currentDialogs.ToList()[answer-1]);
                 }
@@ -69,12 +85,12 @@ namespace EndlessDialogs.ConsoleDemo
             }
         }
 
-        private static int ReadAnswerNumber(int maxNumber)
+        private static int ReadAnswerNumber(int minNumber, int maxNumber)
         {
             int res;
             String Result = Console.ReadLine();
 
-            while (!Int32.TryParse(Result, out res) || !(res > 0 && res <= maxNumber))
+            while (!Int32.TryParse(Result, out res) || !(res >= minNumber && res <= maxNumber))
             {
                 Console.WriteLine("Not a valid number, try again.");
 

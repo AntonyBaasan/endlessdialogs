@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace EndlessDialogs.WpfDemo
 {
@@ -10,6 +11,11 @@ namespace EndlessDialogs.WpfDemo
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            textBlock.Text = textBlock.Text=="Hello world"?"Antoy": "Hello world";
         }
     }
 }

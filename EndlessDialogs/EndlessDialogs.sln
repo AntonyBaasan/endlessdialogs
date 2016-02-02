@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDialogs", "EndlessDi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDialogs.Tests", "EndlessDialogs.Tests\EndlessDialogs.Tests.csproj", "{F21F2300-9FAA-4400-8B68-660F34D83DBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDialogs.WpfDemo", "EndlessDialogs.WpfDemo\EndlessDialogs.WpfDemo.csproj", "{BE085BAE-5B57-4C46-9D4C-88403B50A1E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDialogs.EndlessDiaglogsEditor", "EndlessDialogs.WpfDemo\EndlessDialogs.EndlessDiaglogsEditor.csproj", "{BE085BAE-5B57-4C46-9D4C-88403B50A1E2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndlessDialogs.ConsoleDemo", "EndlessDialogs.ConsoleDemo\EndlessDialogs.ConsoleDemo.csproj", "{65CAC584-A271-4D0B-BE07-A2AF4A474370}"
 EndProject

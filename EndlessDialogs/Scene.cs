@@ -14,8 +14,11 @@ namespace EndlessDialogs
         [DataMember]
         private List<IConversation> conversationList;
 
+<<<<<<< HEAD
         private static IEnumerable<Type> _sceneTypes;
 
+=======
+>>>>>>> dev
         public Scene()
         {
             conversationList = new List<IConversation>();
@@ -60,6 +63,7 @@ namespace EndlessDialogs
         {
             conversationList.Remove(conversation);
         }
+<<<<<<< HEAD
 
         //private static IEnumerable<Type> GetKnownSceneTypes()
         //{
@@ -70,5 +74,7 @@ namespace EndlessDialogs
         //                                .ToList();
         //    return _sceneTypes;
         //}
+=======
+>>>>>>> dev
     }
 }

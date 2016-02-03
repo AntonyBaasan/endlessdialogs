@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -43,6 +44,15 @@ namespace EndlessDialogs.Tests
         public void If_Not_Set_Start_Should_Return_NULL()
         {
             Assert.AreEqual(0, conversation.CurrentDialogs().Count());
+        }
+
+        [Test]
+        public void If_No_More_Conversation_Throw_InvalidOperation()
+        {
+            conversation.SetStartDialog(new[] { Substitute.For<IDialog>() }.ToList());
+            conversation.Next();
+
+            Assert.Throws<InvalidOperationException>(()=> { conversation.Next(); });
         }
 
         [Test]

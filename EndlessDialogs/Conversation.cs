@@ -22,13 +22,13 @@ namespace EndlessDialogs
         {
             if (isWaitingAnswer)
                 throw new InvalidOperationException("Select an answer before go to next");
+            if (!currentDialogs.Any())
+                throw new InvalidOperationException("No more dialogs");
 
             foreach (var previousDialog in currentDialogs)
                 previousDialog.Visit();
 
             currentDialogs = currentDialogs.First().GetNext();
-            if(currentDialogs == null)
-                currentDialogs = new IDialog[0]; 
 
             isWaitingAnswer = currentDialogs.Count() > 1;
         }

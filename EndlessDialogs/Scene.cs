@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace EndlessDialogs
@@ -14,11 +12,6 @@ namespace EndlessDialogs
         [DataMember]
         private List<IConversation> conversationList;
 
-<<<<<<< HEAD
-        private static IEnumerable<Type> _sceneTypes;
-
-=======
->>>>>>> dev
         public Scene()
         {
             conversationList = new List<IConversation>();
@@ -63,18 +56,5 @@ namespace EndlessDialogs
         {
             conversationList.Remove(conversation);
         }
-<<<<<<< HEAD
-
-        //private static IEnumerable<Type> GetKnownSceneTypes()
-        //{
-        //    if (_sceneTypes == null)
-        //        _sceneTypes = Assembly.GetExecutingAssembly()
-        //                                .GetTypes()
-        //                                .Where(t => typeof(Scene).IsAssignableFrom(t))
-        //                                .ToList();
-        //    return _sceneTypes;
-        //}
-=======
->>>>>>> dev
     }
 }

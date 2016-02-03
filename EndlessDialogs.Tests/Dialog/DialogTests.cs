@@ -43,14 +43,14 @@ namespace EndlessDialogs.Tests
         }
 
         [Test]
-        public void Add_Next_Throws_Argument_Exception_If_Null_Passed()
+        public void AddNext_Throws_Argument_Exception_If_Null_Passed()
         {
             IDialog dialog = null;
             Assert.Throws<ArgumentException>(() => { dialog1.AddNext(dialog); });
         }
 
         [Test]
-        public void Get_Next_Should_Return_Next_Dialogs()
+        public void GetNext_Should_Return_Next_Dialogs()
         {
             dialog1.AddNext(dialog2);
 
@@ -59,9 +59,9 @@ namespace EndlessDialogs.Tests
         }
 
         [Test]
-        public void Get_Next_Should_Return_Null_If_No_Dialogs()
+        public void Get_Next_Should_Return_Empty_List_If_No_More_Dialogs()
         {
-            Assert.IsNull(dialog1.GetNext());
+            Assert.AreEqual(0, dialog1.GetNext().Count());
         }
 
         [Test]
@@ -87,5 +87,7 @@ namespace EndlessDialogs.Tests
             Assert.Throws<ArgumentException>(() => { dialog1.AddNext(dialog1); });
         }
 
+       
     }
+
 }

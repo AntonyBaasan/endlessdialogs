@@ -40,7 +40,7 @@ namespace EndlessDialogs
         public IEnumerable<IDialog> GetNext()
         {
             if(nextDialogs != null && !nextDialogs.Any())
-                return null;
+                return new IDialog[0];
 
             return nextDialogs;
         }

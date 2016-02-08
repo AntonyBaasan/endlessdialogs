@@ -5,6 +5,5 @@
         void Serialize(IScene scene, string fileName);
 
         IScene Deserialize(string fileName);
-		
     }
 }

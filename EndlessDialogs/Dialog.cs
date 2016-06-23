@@ -61,10 +61,14 @@ namespace EndlessDialogs
 
         public void AddNext(IEnumerable<IDialog> dialogs)
         {
-            if(dialogs == null || !dialogs.Any())
+            if(dialogs == null)
                 throw new ArgumentException("Can't assign empty Dialog list!");
 
-            foreach (var dialog in dialogs)
+            IEnumerable<IDialog> dialogList = dialogs.ToList();
+            if (dialogList.Any())
+                throw new ArgumentException("Can't assign empty Dialog list!");
+
+            foreach (var dialog in dialogList)
             {
                 AddNext(dialog);
             }

@@ -10,10 +10,14 @@ namespace EndlessDialogs.ConsoleDemo
 
         static void Main(string[] args)
         {
-            PlayScene1();
+            IScene scene = DemoSceneCreator.CreateScene1();
+            string fileName = "TestScene.conv";
+            PlayScene1(scene, fileName, WebPage, new SceneFileSerializer());
+
+
         }
 
-        public static void PlayScene1()
+        public static void PlayScene1(IScene scene, string fileName, string webaddress, ISceneSerializer sceneSerializer)
         {
             Console.WriteLine("EndlessDialogs library demonstration");
             Console.WriteLine("----------------------------");
@@ -25,28 +29,26 @@ namespace EndlessDialogs.ConsoleDemo
             Console.WriteLine("4) Load Scene");
             int answer = ReadAnswerNumber(1, 4);
 
-            IScene scene = DemoSceneCreator.CreateScene1();
             if (answer == 1)
                 ConversationRunner(scene.GetConversations().First());
             else if(answer == 2)
                 ConversationRunner(scene.GetConversations().Skip(1).ToList().First());
             else if (answer == 3)
             {
-                new SceneFileSerializer().Serialize(scene, "TestScene.conv");
+                sceneSerializer.Serialize(scene, fileName);
                 Console.WriteLine("Scene saved to file: TestScene.xml");
             }
             else if (answer == 4)
             {
-                IScene loadedScene = new SceneFileSerializer().Deserialize("TestScene.conv");
+                IScene loadedScene = sceneSerializer.Deserialize(fileName);
                 Console.WriteLine("Scene loaded from file: TestScene.xml");
                 ConversationRunner(loadedScene.GetConversations().Skip(1).ToList().First());
             }
 
-
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine("----------------------------");
-            Console.WriteLine("More: \"" + WebPage + "\"");
+            Console.WriteLine("More: \"" + webaddress + "\"");
             Console.ReadKey();
         }
 
@@ -58,7 +60,7 @@ namespace EndlessDialogs.ConsoleDemo
             Console.WriteLine("");
             Console.WriteLine("----------------------------");
 
-            while (currentDialogs.Count() > 0)
+            while (currentDialogs.Any())
             {
                 if (currentDialogs.Count() == 1)
                 {
@@ -88,13 +90,13 @@ namespace EndlessDialogs.ConsoleDemo
         private static int ReadAnswerNumber(int minNumber, int maxNumber)
         {
             int res;
-            String Result = Console.ReadLine();
+            string result = Console.ReadLine();
 
-            while (!Int32.TryParse(Result, out res) || !(res >= minNumber && res <= maxNumber))
+            while (!int.TryParse(result, out res) || !(res >= minNumber && res <= maxNumber))
             {
                 Console.WriteLine("Not a valid number, try again.");
 
-                Result = Console.ReadLine();
+                result = Console.ReadLine();
             }
 
             return res;
